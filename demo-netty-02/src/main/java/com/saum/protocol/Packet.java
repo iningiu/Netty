@@ -1,7 +1,10 @@
 package com.saum.protocol;
 
+import com.saum.protocol.request.LoginRequestPacket;
+import com.saum.protocol.response.LoginResponsePacket;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +13,7 @@ import java.util.Map;
  * @Description:
  */
 @Data
-public abstract class Packet {
+public abstract class Packet implements Serializable {
     /**
     * 协议版本号，默认为1
     */
@@ -28,6 +31,7 @@ public abstract class Packet {
     private static final Map<Byte, Class<? extends Packet>> packetMap = new HashMap<>();
     static {
         packetMap.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
+        packetMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
     }
 
     public static Class<? extends Packet> getPacketClass(byte commandType){

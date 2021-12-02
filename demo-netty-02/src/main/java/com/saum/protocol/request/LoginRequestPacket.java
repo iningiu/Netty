@@ -1,5 +1,7 @@
-package com.saum.protocol;
+package com.saum.protocol.request;
 
+import com.saum.protocol.Command;
+import com.saum.protocol.Packet;
 import lombok.Data;
 
 /**
@@ -8,7 +10,7 @@ import lombok.Data;
  */
 @Data
 public class LoginRequestPacket extends Packet {
-    private Integer userId;
+    private String userId;
     private String username;
     private String password;
 

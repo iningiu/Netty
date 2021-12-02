@@ -11,6 +11,7 @@ import io.netty.buffer.ByteBufAllocator;
  */
 public class PacketCodeC {
     private static final int MAGIC_NUMBER = 0X12345678;
+    public static final PacketCodeC INSTANCE = new PacketCodeC();
 
     public ByteBuf encode(Packet packet){
         ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();

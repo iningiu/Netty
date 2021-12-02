@@ -7,7 +7,7 @@ package com.saum.serialize;
  */
 public interface Serializer {
 
-    Serializer DEFAULT = SerializerAlgorithm.JSON;
+    Serializer DEFAULT = SerializerAlgorithm.JAVA;
 
     /**
      * 获取序列化算法
@@ -17,7 +17,7 @@ public interface Serializer {
     /**
      * 序列化：将Java对象转为二进制
      */
-    byte[] serialize(Object object);
+    <T> byte[] serialize(T object);
 
     /**
     * 反序列化：将二进制转为Java对象
