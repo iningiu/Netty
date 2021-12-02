@@ -1,6 +1,5 @@
 package com.saum.serialize;
 
-import com.saum.serialize.impl.JSONSerializer;
 
 /**
  * @Author saum
