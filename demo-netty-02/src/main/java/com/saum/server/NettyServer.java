@@ -1,5 +1,9 @@
 package com.saum.server;
 
+import com.saum.codec.PacketDecoder;
+import com.saum.codec.PacketEncoder;
+import com.saum.server.handler.LoginRequestHandler;
+import com.saum.server.handler.MessageRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -34,7 +38,10 @@ public class NettyServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(LOGGING_HANDLER);
-                            ch.pipeline().addLast(new ServerHandler());
+                            ch.pipeline().addLast(new PacketDecoder());
+                            ch.pipeline().addLast(new PacketEncoder());
+                            ch.pipeline().addLast(new LoginRequestHandler());
+                            ch.pipeline().addLast(new MessageRequestHandler());
                         }
                     });
 

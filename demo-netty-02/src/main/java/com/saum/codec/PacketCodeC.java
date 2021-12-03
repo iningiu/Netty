@@ -1,9 +1,9 @@
-package com.saum.protocol;
+package com.saum.codec;
 
+import com.saum.protocol.Packet;
 import com.saum.serialize.Serializer;
 import com.saum.serialize.SerializerAlgorithm;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 
 /**
  * @Author saum

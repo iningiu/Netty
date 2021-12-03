@@ -2,7 +2,7 @@ package com.saum.client;
 
 import com.saum.protocol.request.LoginRequestPacket;
 import com.saum.protocol.Packet;
-import com.saum.protocol.PacketCodeC;
+import com.saum.codec.PacketCodeC;
 import com.saum.protocol.response.LoginResponsePacket;
 import com.saum.protocol.response.MessageResponsePacket;
 import com.saum.util.LoginUtil;
@@ -19,6 +19,7 @@ import java.util.UUID;
  * @Description:
  */
 @Slf4j
+@Deprecated
 public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

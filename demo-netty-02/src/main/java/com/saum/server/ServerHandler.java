@@ -2,15 +2,13 @@ package com.saum.server;
 
 import com.saum.protocol.request.LoginRequestPacket;
 import com.saum.protocol.Packet;
-import com.saum.protocol.PacketCodeC;
+import com.saum.codec.PacketCodeC;
 import com.saum.protocol.request.MessageRequestPacket;
 import com.saum.protocol.response.LoginResponsePacket;
 import com.saum.protocol.response.MessageResponsePacket;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.socket.SocketChannel;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
@@ -21,6 +19,7 @@ import java.util.Date;
  * @Description:
  */
 @Slf4j
+@Deprecated
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

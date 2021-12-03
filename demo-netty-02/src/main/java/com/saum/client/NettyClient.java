@@ -1,7 +1,13 @@
 package com.saum.client;
 
-import com.saum.protocol.PacketCodeC;
+import com.saum.client.handler.LoginResponseHandler;
+import com.saum.client.handler.MessageResponseHandler;
+import com.saum.codec.PacketCodeC;
+import com.saum.codec.PacketDecoder;
+import com.saum.codec.PacketEncoder;
 import com.saum.protocol.request.MessageRequestPacket;
+import com.saum.server.handler.LoginRequestHandler;
+import com.saum.server.handler.MessageRequestHandler;
 import com.saum.util.LoginUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -9,7 +15,6 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +40,11 @@ public class NettyClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(LOGGING_HANDLER);
-                            ch.pipeline().addLast(new ClientHandler());
+                            ch.pipeline().addLast(new PacketDecoder());
+                            ch.pipeline().addLast(new PacketEncoder());
+                            ch.pipeline().addLast(new LoginResponseHandler());
+                            ch.pipeline().addLast(new MessageResponseHandler());
+
                         }
                     });
 
@@ -53,7 +62,7 @@ public class NettyClient {
         new Thread(()->{
             while(!Thread.interrupted()){
                 if(LoginUtil.hasLogin(channel)){
-                    System.out.println("请输入：");
+                    System.out.print("请输入：");
                     Scanner sc = new Scanner(System.in);
                     String line = sc.nextLine();
 
