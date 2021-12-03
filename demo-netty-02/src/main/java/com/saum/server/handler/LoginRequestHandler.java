@@ -3,6 +3,7 @@ package com.saum.server.handler;
 import com.saum.codec.PacketCodeC;
 import com.saum.protocol.request.LoginRequestPacket;
 import com.saum.protocol.response.LoginResponsePacket;
+import com.saum.util.LoginUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -26,6 +27,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         // 登陆校验
         if(valid(msg)){
             loginResponsePacket.setSuccess(true);
+            LoginUtil.markAsLogin(ctx.channel());
             log.info("客户端[" + port + "] 登录成功");
         }else{
             loginResponsePacket.setSuccess(false);
