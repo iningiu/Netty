@@ -1,6 +1,6 @@
 package com.saum.server.handler;
 
-import com.saum.util.LoginUtil;
+import com.saum.util.SessionUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (!LoginUtil.hasLogin(ctx.channel())) {
+        if (!SessionUtil.hasLogin(ctx.channel())) {
             log.error("尚未登录，请先登录...");
             ctx.channel().close();
         } else {
