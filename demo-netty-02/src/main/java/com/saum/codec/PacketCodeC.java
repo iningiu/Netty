@@ -10,7 +10,7 @@ import io.netty.buffer.ByteBuf;
  * @Description: 消息编解码
  */
 public class PacketCodeC {
-    private static final int MAGIC_NUMBER = 0X12345678;
+    public static final int MAGIC_NUMBER = 0X12345678;
     public static final PacketCodeC INSTANCE = new PacketCodeC();
 
     public ByteBuf encode(ByteBuf byteBuf, Packet packet){

@@ -5,6 +5,7 @@ import com.saum.client.handler.MessageResponseHandler;
 import com.saum.codec.PacketCodeC;
 import com.saum.codec.PacketDecoder;
 import com.saum.codec.PacketEncoder;
+import com.saum.codec.ProcotolFrameDecoder;
 import com.saum.protocol.request.MessageRequestPacket;
 import com.saum.server.handler.LoginRequestHandler;
 import com.saum.server.handler.MessageRequestHandler;
@@ -15,6 +16,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +42,7 @@ public class NettyClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(LOGGING_HANDLER);
+                            ch.pipeline().addLast(new ProcotolFrameDecoder());
                             ch.pipeline().addLast(new PacketDecoder());
                             ch.pipeline().addLast(new PacketEncoder());
                             ch.pipeline().addLast(new LoginResponseHandler());

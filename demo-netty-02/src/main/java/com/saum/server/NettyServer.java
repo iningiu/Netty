@@ -2,6 +2,7 @@ package com.saum.server;
 
 import com.saum.codec.PacketDecoder;
 import com.saum.codec.PacketEncoder;
+import com.saum.codec.ProcotolFrameDecoder;
 import com.saum.server.handler.LoginRequestHandler;
 import com.saum.server.handler.MessageRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
@@ -12,6 +13,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +40,7 @@ public class NettyServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(LOGGING_HANDLER);
+                            ch.pipeline().addLast(new ProcotolFrameDecoder());
                             ch.pipeline().addLast(new PacketDecoder());
                             ch.pipeline().addLast(new PacketEncoder());
                             ch.pipeline().addLast(new LoginRequestHandler());
