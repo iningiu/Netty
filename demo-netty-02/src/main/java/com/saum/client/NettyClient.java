@@ -1,6 +1,10 @@
 package com.saum.client;
 
+import com.saum.protocol.PacketCodeC;
+import com.saum.protocol.request.MessageRequestPacket;
+import com.saum.util.LoginUtil;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -9,6 +13,8 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Scanner;
 
 /**
  * @Author saum
@@ -34,11 +40,29 @@ public class NettyClient {
                     });
 
             ChannelFuture channelFuture = bootstrap.connect("localhost", 8000).sync();
+            startConsoleThread(channelFuture.channel());
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             log.error("client error");
         } finally {
             group.shutdownGracefully();
         }
+    }
+
+    private static void startConsoleThread(Channel channel){
+        new Thread(()->{
+            while(!Thread.interrupted()){
+                if(LoginUtil.hasLogin(channel)){
+                    System.out.println("请输入：");
+                    Scanner sc = new Scanner(System.in);
+                    String line = sc.nextLine();
+
+                    MessageRequestPacket messageRequestPacket = new MessageRequestPacket();
+                    messageRequestPacket.setMessage(line);
+                    ByteBuf byteBuf = PacketCodeC.INSTANCE.encode(channel.alloc().ioBuffer(), messageRequestPacket);
+                    channel.writeAndFlush(byteBuf);
+                }
+            }
+        }).start();
     }
 }

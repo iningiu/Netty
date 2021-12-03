@@ -1,7 +1,9 @@
 package com.saum.protocol;
 
 import com.saum.protocol.request.LoginRequestPacket;
+import com.saum.protocol.request.MessageRequestPacket;
 import com.saum.protocol.response.LoginResponsePacket;
+import com.saum.protocol.response.MessageResponsePacket;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -32,6 +34,8 @@ public abstract class Packet implements Serializable {
     static {
         packetMap.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         packetMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetMap.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetMap.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
     }
 
     public static Class<? extends Packet> getPacketClass(byte commandType){
