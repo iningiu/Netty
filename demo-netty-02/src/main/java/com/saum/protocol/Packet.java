@@ -1,13 +1,7 @@
 package com.saum.protocol;
 
-import com.saum.protocol.request.CreateGroupRequestPacket;
-import com.saum.protocol.request.LoginRequestPacket;
-import com.saum.protocol.request.LogoutRequestPacket;
-import com.saum.protocol.request.MessageRequestPacket;
-import com.saum.protocol.response.CreateGroupResponsePacket;
-import com.saum.protocol.response.LoginResponsePacket;
-import com.saum.protocol.response.LogoutResponsePacket;
-import com.saum.protocol.response.MessageResponsePacket;
+import com.saum.protocol.request.*;
+import com.saum.protocol.response.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,7 +19,6 @@ public abstract class Packet implements Serializable {
     */
     private Byte version = 1;
 
-    private int sequenceId;
     private int commandType;
 
     /**
@@ -44,6 +37,12 @@ public abstract class Packet implements Serializable {
         packetMap.put(Command.LOGOUT_RESPONSE, LogoutResponsePacket.class);
         packetMap.put(Command.CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
         packetMap.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
+        packetMap.put(Command.JOIN_GROUP_REQUEST, JoinGroupRequestPacket.class);
+        packetMap.put(Command.JOIN_GROUP_RESPONSE, JoinGroupResponsePacket.class);
+        packetMap.put(Command.LIST_GROUP_MEMBERS_REQUEST, ListGroupMembersRequestPacket.class);
+        packetMap.put(Command.LIST_GROUP_MEMBERS_RESPONSE, ListGroupMembersResponsePacket.class);
+        packetMap.put(Command.QUIT_GROUP_REQUEST, QuitGroupRequestPacket.class);
+        packetMap.put(Command.QUIT_GROUP_RESPONSE, QuitGroupResponsePacket.class);
     }
 
     public static Class<? extends Packet> getPacketClass(byte commandType){

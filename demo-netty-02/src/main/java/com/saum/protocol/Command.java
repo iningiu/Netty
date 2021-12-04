@@ -11,7 +11,13 @@ public class Command {
     public static final Byte MESSAGE_RESPONSE = 4; // 消息返回
     public static final Byte LOGOUT_REQUEST  = 5; // 登出请求
     public static final Byte LOGOUT_RESPONSE  = 6; // 登出响应
-    public static final Byte CREATE_GROUP_REQUEST  = 7; // 消息返回
-    public static final Byte CREATE_GROUP_RESPONSE  = 8; // 消息返回
+    public static final Byte CREATE_GROUP_REQUEST  = 7; // 创建群聊请求
+    public static final Byte CREATE_GROUP_RESPONSE  = 8; // 创建群聊响应
+    public static final Byte LIST_GROUP_MEMBERS_REQUEST = 9; // 列出群聊成员请求
+    public static final Byte LIST_GROUP_MEMBERS_RESPONSE = 10; // 列出群聊成员响应
+    public static final Byte JOIN_GROUP_REQUEST = 11; // 加入群聊请求
+    public static final Byte JOIN_GROUP_RESPONSE = 12; // 加入群聊响应
+    public static final Byte QUIT_GROUP_REQUEST = 13; // 退群请求
+    public static final Byte QUIT_GROUP_RESPONSE = 14; // 退群响应
 
 }

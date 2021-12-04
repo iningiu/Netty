@@ -2,16 +2,10 @@ package com.saum.client;
 
 import com.saum.client.console.ConsoleCommandManager;
 import com.saum.client.console.LoginConsoleCommand;
-import com.saum.client.handler.CreateGroupResponseHandler;
-import com.saum.client.handler.LoginResponseHandler;
-import com.saum.client.handler.LogoutResponseHandler;
-import com.saum.client.handler.MessageResponseHandler;
+import com.saum.client.handler.*;
 import com.saum.codec.PacketDecoder;
 import com.saum.codec.PacketEncoder;
 import com.saum.codec.ProcotolFrameDecoder;
-import com.saum.protocol.request.LoginRequestPacket;
-import com.saum.protocol.request.MessageRequestPacket;
-import com.saum.util.SessionUtil;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -49,7 +43,9 @@ public class NettyClient {
                             ch.pipeline().addLast(new LogoutResponseHandler());
                             ch.pipeline().addLast(new MessageResponseHandler());
                             ch.pipeline().addLast(new CreateGroupResponseHandler());
-
+                            ch.pipeline().addLast(new JoinGroupResponseHandler());
+                            ch.pipeline().addLast(new ListGroupMembersResponseHandler());
+                            ch.pipeline().addLast(new QuitGroupResponseHandler());
                         }
                     });
 
