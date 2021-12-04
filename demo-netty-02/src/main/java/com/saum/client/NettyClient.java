@@ -1,6 +1,10 @@
 package com.saum.client;
 
+import com.saum.client.console.ConsoleCommandManager;
+import com.saum.client.console.LoginConsoleCommand;
+import com.saum.client.handler.CreateGroupResponseHandler;
 import com.saum.client.handler.LoginResponseHandler;
+import com.saum.client.handler.LogoutResponseHandler;
 import com.saum.client.handler.MessageResponseHandler;
 import com.saum.codec.PacketDecoder;
 import com.saum.codec.PacketEncoder;
@@ -43,7 +47,8 @@ public class NettyClient {
                             ch.pipeline().addLast(new PacketEncoder());
                             ch.pipeline().addLast(new LoginResponseHandler());
                             ch.pipeline().addLast(new MessageResponseHandler());
-
+                            ch.pipeline().addLast(new CreateGroupResponseHandler());
+                            ch.pipeline().addLast(new LogoutResponseHandler());
                         }
                     });
 
@@ -59,26 +64,15 @@ public class NettyClient {
 
     private static void startConsoleThread(Channel channel){
         Scanner sc = new Scanner(System.in);
-        LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
+        LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
+        ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
 
         new Thread(()->{
             while(!Thread.interrupted()){
                 if(!SessionUtil.hasLogin(channel)){
-                    System.out.print("请输入用户名登录：");
-                    String username = sc.nextLine();
-                    loginRequestPacket.setUsername(username);
-                    loginRequestPacket.setPassword("123");
-
-                    channel.writeAndFlush(loginRequestPacket);
-                    // 等待用户登录响应
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                    }
+                    loginConsoleCommand.exec(sc, channel);
                 }else{
-                    String toUserId = sc.next();
-                    String message = sc.next();
-                    channel.writeAndFlush(new MessageRequestPacket(toUserId, message));
+                    consoleCommandManager.exec(sc, channel);
                 }
             }
         }).start();

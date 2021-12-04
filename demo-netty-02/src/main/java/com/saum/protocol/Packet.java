@@ -1,8 +1,12 @@
 package com.saum.protocol;
 
+import com.saum.protocol.request.CreateGroupRequestPacket;
 import com.saum.protocol.request.LoginRequestPacket;
+import com.saum.protocol.request.LogoutRequestPacket;
 import com.saum.protocol.request.MessageRequestPacket;
+import com.saum.protocol.response.CreateGroupResponsePacket;
 import com.saum.protocol.response.LoginResponsePacket;
+import com.saum.protocol.response.LogoutResponsePacket;
 import com.saum.protocol.response.MessageResponsePacket;
 import lombok.Data;
 
@@ -36,6 +40,10 @@ public abstract class Packet implements Serializable {
         packetMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
         packetMap.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
         packetMap.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
+        packetMap.put(Command.LOGOUT_REQUEST, LogoutRequestPacket.class);
+        packetMap.put(Command.LOGOUT_RESPONSE, LogoutResponsePacket.class);
+        packetMap.put(Command.CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        packetMap.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
     }
 
     public static Class<? extends Packet> getPacketClass(byte commandType){

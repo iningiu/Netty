@@ -3,9 +3,7 @@ package com.saum.server;
 import com.saum.codec.PacketDecoder;
 import com.saum.codec.PacketEncoder;
 import com.saum.codec.ProcotolFrameDecoder;
-import com.saum.server.handler.AuthHandler;
-import com.saum.server.handler.LoginRequestHandler;
-import com.saum.server.handler.MessageRequestHandler;
+import com.saum.server.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -47,6 +45,8 @@ public class NettyServer {
                             ch.pipeline().addLast(new LoginRequestHandler());
                             ch.pipeline().addLast(new AuthHandler());
                             ch.pipeline().addLast(new MessageRequestHandler());
+                            ch.pipeline().addLast(new CreateGroupRequestHandler());
+                            ch.pipeline().addLast(new LogoutRequestHandler());
                         }
                     });
 
