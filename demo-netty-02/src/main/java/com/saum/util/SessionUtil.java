@@ -27,7 +27,7 @@ public class SessionUtil {
     }
 
     public static boolean hasLogin(io.netty.channel.Channel channel){
-        return channel.hasAttr(Attributes.SESSION);
+        return channel.hasAttr(Attributes.SESSION) && channel.attr(Attributes.SESSION).get() != null;
     }
 
     public static Session getSession(Channel channel){

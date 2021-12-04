@@ -18,7 +18,7 @@ public class ConsoleCommandManager implements ConsoleCommand {
     public ConsoleCommandManager(){
         consoleCommandMap = new HashMap<>();
         consoleCommandMap.put("login", new LoginConsoleCommand());
-        consoleCommandMap.put("logout", new LogoutConsoleCommand());
+        consoleCommandMap.put("quit", new LogoutConsoleCommand());
         consoleCommandMap.put("sendToUser", new SendToUserConsoleCommand());
         consoleCommandMap.put("createGroup", new CreateGroupConsoleCommand());
     }
@@ -28,6 +28,8 @@ public class ConsoleCommandManager implements ConsoleCommand {
         String command = scanner.next();
 
         if(!SessionUtil.hasLogin(channel)){
+            System.out.println("您尚未登录，请先登录...");
+            consoleCommandMap.get("login").exec(scanner, channel);
             return;
         }
 

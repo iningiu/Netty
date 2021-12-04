@@ -26,12 +26,12 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
             loginResponsePacket.setSuccess(true);
             String userId = randomUserId();
             loginResponsePacket.setUserId(userId);
-            log.info("用户[" + msg.getUsername() + "] 登录成功");
+            log.info("客户端[" + msg.getUsername() + "] 登录成功");
             SessionUtil.bindSession(new Session(userId, msg.getUsername()), ctx.channel());
         }else{
             loginResponsePacket.setSuccess(false);
             loginResponsePacket.setReason("用户名或密码错误");
-            log.info("用户[" + msg.getUsername() + "] 登录失败");
+            log.info("客户端[" + msg.getUsername() + "] 登录失败");
         }
         ctx.writeAndFlush(loginResponsePacket);
     }
