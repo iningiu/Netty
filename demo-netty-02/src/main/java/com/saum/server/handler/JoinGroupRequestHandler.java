@@ -1,6 +1,7 @@
 package com.saum.server.handler;
 
 import com.saum.protocol.request.JoinGroupRequestPacket;
+import com.saum.protocol.response.JoinGroupResponsePacket;
 import com.saum.util.SessionUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -17,10 +18,10 @@ public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGro
         ChannelGroup channelGroup = SessionUtil.getChannelGroup(groupId);
         channelGroup.add(ctx.channel());
 
-        JoinGroupRequestPacket joinGroupRequestPacket = new JoinGroupRequestPacket();
-        joinGroupRequestPacket.setGorupId(groupId);
-        joinGroupRequestPacket.setSuccess(true);
+        JoinGroupResponsePacket joinGroupResponsePacket = new JoinGroupResponsePacket();
+        joinGroupResponsePacket.setGroupId(groupId);
+        joinGroupResponsePacket.setSuccess(true);
 
-        ctx.writeAndFlush(joinGroupRequestPacket);
+        ctx.channel().writeAndFlush(joinGroupResponsePacket);
     }
 }

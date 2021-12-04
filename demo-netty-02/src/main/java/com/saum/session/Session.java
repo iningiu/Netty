@@ -2,6 +2,8 @@ package com.saum.session;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
  * @Author saum
  * @Description:
@@ -10,7 +12,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Session {
+public class Session implements Serializable {
     private String userId;
     private String userName;
 

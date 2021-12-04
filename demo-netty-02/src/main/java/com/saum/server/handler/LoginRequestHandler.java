@@ -33,7 +33,7 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
             loginResponsePacket.setReason("用户名或密码错误");
             log.info("客户端[" + msg.getUsername() + "] 登录失败");
         }
-        ctx.writeAndFlush(loginResponsePacket);
+        ctx.channel().writeAndFlush(loginResponsePacket);
     }
 
     @Override

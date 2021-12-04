@@ -12,8 +12,6 @@ import lombok.Data;
 public class JoinGroupRequestPacket extends Packet {
 
     private String gorupId;
-    private boolean success;
-    private String reason;
 
     @Override
     public Byte getCommandType() {

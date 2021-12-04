@@ -15,6 +15,8 @@ import java.util.List;
 public class ListGroupMembersResponsePacket extends Packet {
     private String groupId;
     private List<Session> sessionList;
+    private boolean success;
+    private String message;
 
     @Override
     public Byte getCommandType() {

@@ -38,7 +38,6 @@ public class NettyClient {
 //                            ch.pipeline().addLast(LOGGING_HANDLER);
                             ch.pipeline().addLast(new ProcotolFrameDecoder());
                             ch.pipeline().addLast(new PacketDecoder());
-                            ch.pipeline().addLast(new PacketEncoder());
                             ch.pipeline().addLast(new LoginResponseHandler());
                             ch.pipeline().addLast(new LogoutResponseHandler());
                             ch.pipeline().addLast(new MessageResponseHandler());
@@ -46,6 +45,7 @@ public class NettyClient {
                             ch.pipeline().addLast(new JoinGroupResponseHandler());
                             ch.pipeline().addLast(new ListGroupMembersResponseHandler());
                             ch.pipeline().addLast(new QuitGroupResponseHandler());
+                            ch.pipeline().addLast(new PacketEncoder());
                         }
                     });
 
