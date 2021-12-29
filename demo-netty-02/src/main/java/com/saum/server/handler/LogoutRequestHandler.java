@@ -4,6 +4,7 @@ import com.saum.protocol.request.LogoutRequestPacket;
 import com.saum.protocol.response.LogoutResponsePacket;
 import com.saum.session.Session;
 import com.saum.util.SessionUtil;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +14,11 @@ import lombok.extern.slf4j.Slf4j;
  * @Description:
  */
 @Slf4j
+@ChannelHandler.Sharable
 public class LogoutRequestHandler extends SimpleChannelInboundHandler<LogoutRequestPacket> {
+
+    public static final LogoutRequestHandler INSTANCE = new LogoutRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LogoutRequestPacket msg) throws Exception {
         Session session = SessionUtil.getSession(ctx.channel());

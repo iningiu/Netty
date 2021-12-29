@@ -5,6 +5,7 @@ import com.saum.protocol.response.CreateGroupResponsePacket;
 import com.saum.util.IDUtil;
 import com.saum.util.SessionUtil;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -17,16 +18,20 @@ import java.util.List;
  * @Author saum
  * @Description:
  */
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+
+    public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket msg) throws Exception {
         List<String> userIdList = msg.getUserIdList();
         List<String> userNameList = new ArrayList<>();
         ChannelGroup channelGroup = new DefaultChannelGroup(ctx.executor());
 
-        for(String userId : userIdList){
+        for (String userId : userIdList) {
             Channel channel = SessionUtil.getChannel(userId);
-            if(channel != null){
+            if (channel != null) {
                 channelGroup.add(channel);
                 userNameList.add(SessionUtil.getSession(channel).getUserName());
             }

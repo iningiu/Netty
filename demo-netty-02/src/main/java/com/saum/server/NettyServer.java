@@ -1,5 +1,6 @@
 package com.saum.server;
 
+import com.saum.codec.PacketCodecHandler;
 import com.saum.codec.PacketDecoder;
 import com.saum.codec.PacketEncoder;
 import com.saum.codec.ProcotolFrameDecoder;
@@ -40,17 +41,10 @@ public class NettyServer {
                         protected void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(LOGGING_HANDLER);
                             ch.pipeline().addLast(new ProcotolFrameDecoder());
-                            ch.pipeline().addLast(new PacketDecoder());
-                            ch.pipeline().addLast(new LoginRequestHandler());
-                            ch.pipeline().addLast(new LogoutRequestHandler());
-                            ch.pipeline().addLast(new AuthHandler());
-                            ch.pipeline().addLast(new MessageRequestHandler());
-                            ch.pipeline().addLast(new CreateGroupRequestHandler());
-                            ch.pipeline().addLast(new JoinGroupRequestHandler());
-                            ch.pipeline().addLast(new ListGroupMembersRequestHandler());
-                            ch.pipeline().addLast(new GroupMessageRequestHandler());
-                            ch.pipeline().addLast(new QuitGroupRequestHandler());
-                            ch.pipeline().addLast(new PacketEncoder());
+                            ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
+                            ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                            ch.pipeline().addLast(AuthHandler.INSTANCE);
+                            ch.pipeline().addLast(IMHandler.INSTANCE);
                         }
                     });
 
