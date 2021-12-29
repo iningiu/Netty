@@ -6,6 +6,7 @@ import com.saum.client.handler.*;
 import com.saum.codec.PacketDecoder;
 import com.saum.codec.PacketEncoder;
 import com.saum.codec.ProcotolFrameDecoder;
+import com.saum.server.handler.IMIdleStateHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -36,6 +37,7 @@ public class NettyClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(LOGGING_HANDLER);
+                            ch.pipeline().addLast(new IMIdleStateHandler());
                             ch.pipeline().addLast(new ProcotolFrameDecoder());
                             ch.pipeline().addLast(new PacketDecoder());
                             ch.pipeline().addLast(new LoginResponseHandler());
@@ -47,6 +49,7 @@ public class NettyClient {
                             ch.pipeline().addLast(new GroupMessageResponseHandler());
                             ch.pipeline().addLast(new QuitGroupResponseHandler());
                             ch.pipeline().addLast(new PacketEncoder());
+                            ch.pipeline().addLast(new HeartBeatTimerHandler());
                         }
                     });
 

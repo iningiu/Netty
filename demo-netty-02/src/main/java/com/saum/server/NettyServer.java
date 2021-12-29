@@ -40,9 +40,11 @@ public class NettyServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
 //                            ch.pipeline().addLast(LOGGING_HANDLER);
+                            ch.pipeline().addLast(new IMIdleStateHandler());
                             ch.pipeline().addLast(new ProcotolFrameDecoder());
                             ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                             ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                            ch.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
                             ch.pipeline().addLast(AuthHandler.INSTANCE);
                             ch.pipeline().addLast(IMHandler.INSTANCE);
                         }

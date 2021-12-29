@@ -21,5 +21,7 @@ public class Command {
     public static final Byte QUIT_GROUP_RESPONSE = 14; // 退群响应
     public static final Byte GROUP_MESSAGE_REQUEST = 15; // 群聊发送消息请求
     public static final Byte GROUP_MESSAGE_RESPONSE = 16; // 群聊发送消息响应
+    public static final Byte HEARTBEAT_REQUEST  = 17; // 心跳请求
+    public static final Byte HEARTBEAT_RESPONSE  = 18; // 心跳响应
 
 }
