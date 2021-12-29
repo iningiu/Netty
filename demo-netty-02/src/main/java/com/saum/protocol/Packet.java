@@ -43,6 +43,8 @@ public abstract class Packet implements Serializable {
         packetMap.put(Command.LIST_GROUP_MEMBERS_RESPONSE, ListGroupMembersResponsePacket.class);
         packetMap.put(Command.QUIT_GROUP_REQUEST, QuitGroupRequestPacket.class);
         packetMap.put(Command.QUIT_GROUP_RESPONSE, QuitGroupResponsePacket.class);
+        packetMap.put(Command.GROUP_MESSAGE_REQUEST , GroupMessageRequestPacket.class);
+        packetMap.put(Command.GROUP_MESSAGE_RESPONSE , GroupMessageResponsePacket.class);
     }
 
     public static Class<? extends Packet> getPacketClass(byte commandType){
